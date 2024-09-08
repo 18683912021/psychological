@@ -212,6 +212,7 @@ import Footer from "@/components/Footer.vue";
 
 import "@/css/Product.scss";
 
+
 export default {
   data() {
     return {}
