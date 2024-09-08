@@ -1,0 +1,146 @@
+.header {
+    // position: fixed;
+    width: 100%;
+    background-color: rgb(84, 92, 100);
+    box-shadow: 0px 0px 40px 0px rgba(231, 228, 228, 0.8);
+    .top-left {
+        .top-left-little {
+            display: flex;
+            width: 250px;
+            margin: 0 auto;
+            h1 {
+                display: flex;
+                align-items: center;
+                height: 5rem;
+                margin-right: 0.3125rem;
+                img {
+                    cursor: pointer;  
+                    width: 4.6875rem;
+                    height: 4.6875rem;
+                }
+            }
+            .title {
+                height: 5rem;
+                line-height: 5rem;
+                color: rgb(255, 255, 255);
+                font-size: 1.875rem;
+                cursor: pointer;
+                width: 10rem;
+            }
+        }
+    }
+    @media screen and (max-width: 62.5rem) {
+        .top-left {
+            border-bottom: 1px solid rgba(231, 228, 228, 0.8);
+            .top-left-little {
+                margin: 0 auto;
+                width: 15.625rem;
+                display: flex;
+                h1 {
+                    display: flex;
+                    align-items: center;
+                    height: 5rem;
+                    margin-right: 0.3125rem;
+                    img {                      
+                        width: 55px;
+                        height: 55px;
+                    }
+                }
+                .title {
+                    height: 5rem;
+                    line-height: 5rem;
+                    color: rgb(255, 255, 255);
+                    font-size: 24px;
+                    cursor: pointer;
+                    width: 10rem;
+                }
+            }
+        }
+    }
+    .top-right {
+        .top-right-little {
+            ul {
+                margin: 0 auto;
+                width: 45.625rem;
+                display: flex;
+                li {
+                    cursor: pointer;
+                    list-style: none;
+                    width: 9.125rem;
+                    border-bottom: 0.125rem solid rgb(84, 92, 100);
+                    transition: border-bottom 0.3s linear;
+                    p {
+                        text-align: center;
+                        font-size: 0.875rem;
+                        color: white;
+                        span {
+                            display: block;
+                        }
+                        span:nth-child(1) {
+                            padding-top: 1.25rem;
+                            padding-bottom: 0.4375rem;
+                        }
+                        span:nth-child(2) {
+                            padding-bottom: 1.0625rem;
+                            font-size: 0.75rem;
+                        }
+                    }
+                    p:hover {
+                        color: rgb(255, 208, 75);
+                    }
+                }
+                li:hover {
+                    background-color: #464d53;
+                    border-bottom: 0.125rem solid rgb(255, 208, 75);
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 62.5rem) {
+        .top-right {
+            .top-right-little {
+                ul {
+                    width: 100%;
+                    display: flex;
+                    li {
+                        list-style: none;
+                        width: 9.125rem;
+                        border-bottom: 0.125rem solid rgb(84, 92, 100);
+                        transition: border-bottom 0.3s linear;
+                        p {
+                            text-align: center;
+                            font-size: 0.875rem;
+                            color: white;
+                            span {
+                                display: block;
+                            }
+                            span:nth-child(1) {
+                                padding-top: 1.25rem;
+                                padding-bottom: 0.4375rem;
+                            }
+                            span:nth-child(2) {
+                                padding-bottom: 1.0625rem;
+                                font-size: 0.75rem;
+                            }
+                        }
+                        p:hover {
+                            color: rgb(255, 208, 75);
+                        }
+                    }
+                    li:hover {
+                        background-color: #464d53;
+                        border-bottom: 0.125rem solid rgb(255, 208, 75);
+                    }
+                    li:nth-child(5){
+                        padding-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 62.5rem){
+    .header{
+        position: relative;
+    }
+}
