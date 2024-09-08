@@ -6,7 +6,7 @@
           <h1>
             <img src="@/assets/logo.png" alt="">
           </h1>
-          <p class="title">豆芽网络</p>
+          <p class="title">心理辅导平台</p>
         </div>
       </el-col>
       <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="14" class="top-right">
@@ -32,14 +32,20 @@
             </li>
             <li class="wd" @click="online()">
               <p>
-                <span>在线文档</span>
-                <span>Online Documentation</span>
+                <span>个人中心</span>
+                <span>Personal Center</span>
               </p>
             </li>
             <li class="lx" @click="contact()">
               <p>
                 <span>联系我们</span>
                 <span>Contact US</span>
+              </p>
+            </li>
+            <li class="loginBtn" @click="login()">
+              <p>
+                <span>{{loginText.cn}}</span>
+                <span>{{loginText.en}}</span>
               </p>
             </li>
           </ul>
@@ -53,9 +59,26 @@
 import "@/components/header.scss";
 export default {
   data() {
-    return {};
+    return {
+      loginText:{
+        cn:'登录',
+        en:'Login'
+      }
+    };
+  },
+  mounted() {
+    const token = localStorage.getItem('token')
+    if(token){
+      this.loginText = {
+        cn:'退出',
+        en:'Logout'
+      }
+    }
   },
   methods: {
+    login(){
+      this.$router.push("/login")
+    },
     home() {
       this.$router.push("/");
     },

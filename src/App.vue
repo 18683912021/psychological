@@ -1,9 +1,26 @@
 <template>
   <div id="app">
-    <div id="nav"></div>
-    <router-view/>
+    <!-- <Header/> -->
+    <router-view />
+    <!-- <Footer/> -->
   </div>
 </template>
+
+<script>
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
+import "@/css/Online.scss";
+export default {
+  name: "Home",
+  data() {
+    return {};
+  },
+  components: {
+    Header,
+    Footer,
+  },
+};
+</script>
 
 <style lang="scss">
 * {

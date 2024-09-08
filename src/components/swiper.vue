@@ -1,46 +1,48 @@
-
 <template>
-    <div class="vuecarousel">
-        <div
-            class="contain"
-            @mouseenter="stop"
-            @mouseleave="start"
-            :style="{width: imgWidth + 'px', height: imgHeight + 'px'}"
+  <div class="vuecarousel">
+    <div
+      class="contain"
+      @mouseenter="stop"
+      @mouseleave="start"
+      :style="{ width: imgWidth + 'px', height: imgHeight + 'px' }"
+    >
+      <ul class="ul">
+        <li
+          class="items"
+          v-for="(img, index) in imgs"
+          :key="index"
+          v-show="index == showIndex"
         >
-            <ul class="ul">
-                <li
-                    class="items"
-                    v-for="(img, index) in imgs"
-                    :key="index"
-                    v-show="index == showIndex"
-                >
-                    <img :src="img.src" alt="轮播图">
-                </li>
-            </ul>
-            <ul
-                class="dots"
-                :style="{width: imgs.length * (dotWidth + 10) + 'px',  height: dotWidth + 'px'}"
-            >
-                <li
-                    v-for="(img, index) in imgs"
-                    :key="index"
-                    :class="index == showIndex ? 'active' : ''"
-                    @click="showIndex = index"
-                    :style="{width: dotWidth + 'px', height: dotWidth + 'px'}"
-                ></li>
-            </ul>
-            <div class="control" v-show="show">
-                <!-- <span class="left" @click="previous"></span>
+          <img :src="img.src" alt="轮播图" />
+        </li>
+      </ul>
+      <ul
+        class="dots"
+        :style="{
+          width: imgs.length * (dotWidth + 10) + 'px',
+          height: dotWidth + 'px',
+        }"
+      >
+        <li
+          v-for="(img, index) in imgs"
+          :key="index"
+          :class="index == showIndex ? 'active' : ''"
+          @click="showIndex = index"
+          :style="{ width: dotWidth + 'px', height: dotWidth + 'px' }"
+        ></li>
+      </ul>
+      <div class="control" v-show="show">
+        <!-- <span class="left" @click="previous"></span>
                 <span class="right" @click="next">></span> -->
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </template>
- 
+
 <script>
 export default {
   name: "VueCarousel",
-  created() {
+  mounted() {
     this.timer = setInterval(() => {
       this.next();
     }, this.delay);
@@ -51,35 +53,36 @@ export default {
   props: {
     imgs: {
       type: Array,
-      required: true
+      required: true,
+      default:[]
     },
     delay: {
       type: Number,
-      default: function() {
+      default: function () {
         return 2000;
-      }
+      },
     },
     imgWidth: {
-      default: function() {
+      default: function () {
         return 400;
-      }
+      },
     },
     imgHeight: {
-      default: function() {
+      default: function () {
         return 302;
-      }
+      },
     },
     dotWidth: {
-      default: function() {
+      default: function () {
         return 20;
-      }
-    }
+      },
+    },
   },
   data() {
     return {
       showIndex: 0, //显示第几个图片
       timer: null, // 定时器
-      show: false // 前后按钮显示
+      show: false, // 前后按钮显示
     };
   },
   methods: {
@@ -107,11 +110,11 @@ export default {
     stop() {
       this.show = true;
       clearInterval(this.timer);
-    }
-  }
+    },
+  },
 };
 </script>
- 
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" scoped>
 .contain {
