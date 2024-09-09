@@ -6,3 +6,11 @@ export function login(data) {
     data,
   });
 }
+
+export function register(data) {
+  return request({
+    url: "/p/user/register",
+    method: "post",
+    data,
+  });
+}

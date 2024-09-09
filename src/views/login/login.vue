@@ -8,10 +8,16 @@
         ref="ruleForm"
         class="demo-ruleForm"
       >
-        <el-form-item label="用户名：" prop="username">
+        <el-form-item v-if="type === '登录'" label="用户名" prop="name">
           <el-input
-            v-model="ruleForm.username"
+            v-model="ruleForm.name"
             placeholder="请输入用户名"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="手机号：" prop="phone">
+          <el-input
+            v-model="ruleForm.phone"
+            placeholder="请输入手机号"
           ></el-input>
         </el-form-item>
         <el-form-item label="密码：" prop="password">
@@ -21,10 +27,10 @@
           ></el-input>
         </el-form-item>
         <el-form-item prop="identity">
-          <el-radio-group v-model="ruleForm.identity">
+          <el-radio-group v-model="ruleForm.type">
             <el-radio label="1">管理员</el-radio>
-            <el-radio label="2">管理员</el-radio>
-            <el-radio label="3">管理员</el-radio>
+            <el-radio label="2">用户</el-radio>
+            <el-radio label="3">心理医生</el-radio>
           </el-radio-group>
         </el-form-item>
         <!-- 登录按钮 -->
@@ -33,8 +39,9 @@
             style="width: 100%; margin: 0 auto"
             type="primary"
             @click="submitForm('ruleForm')"
-            >登录</el-button
+            >{{ type === "登录" ? "注册" : "登录" }}</el-button
           >
+          <div class="loginType" @click="loginType()">{{ type }}</div>
         </el-form-item>
       </el-form>
     </div>
@@ -42,13 +49,16 @@
 </template>
 
 <script>
-import { login } from "@/service/api/index";
+import { login, register } from "@/service/api/index";
 export default {
   name: "Home",
   data() {
     return {
+      // 注册还是登录
+      type: "注册",
       ruleForm: {
-        username: "",
+        phone: "",
+        name: "",
         password: "",
         type: "1",
       },
@@ -56,14 +66,27 @@ export default {
   },
   components: {},
   methods: {
+    loginType() {
+      this.type = this.type === "登录" ? "注册" : "登录";
+    },
     async submitForm() {
-      const result = await login(this.ruleForm);
-      console.log(result)
-      // this.$router.push("/")
+      let url = this.type !== "登录" ? login : register;
+      const result = await url(this.ruleForm);
+      if (result.data.msg === "登录成功") {
+        this.$router.push("/");
+      }
+      console.log(result);
     },
   },
 };
 </script>
 <style scoped lang="scss">
 @import "@/css/login.scss";
+.loginType {
+  position: absolute;
+  z-index: 1;
+  button: 0px;
+  right: 0px;
+  color: white;
+}
 </style>

@@ -3,7 +3,7 @@ import axios from "axios";
 
 const service = axios.create({
   baseURL: "/api", // 使用代理
-  timeout: 5000, // 请求超时时间
+  timeout: 5000 * 60, // 请求超时时间
 });
 
 // 请求拦截器
@@ -26,7 +26,7 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   (response) => {
-    const res = response.data;
+    const res = response;
     // 这里可以根据后端的响应结构来做一些统一处理
     if (res.status !== 200) {
       // 处理错误
