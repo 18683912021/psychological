@@ -20,7 +20,7 @@ module.exports = {
     devServer: {
       proxy: {
         "/api": {
-          target: "http://127.0.0.1:8889", // 代理目标服务器
+          target: "http://162.14.111.211:8091/", // 代理目标服务器
           changeOrigin: true, // 是否跨域
           // pathRewrite: { '^/api': '' }, // 重写路径
         },

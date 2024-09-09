@@ -1,21 +1,22 @@
 <template>
-  <div class="backStage">
+  <div class="AdminLayout">
     <div class="content">
       <div class="left-nav">
         <el-row class="tac">
           <el-col :span="24">
             <el-menu
-              default-active="2"
+              default-active="/Psychologist"
               class="el-menu-vertical-demo"
               @open="handleOpen"
               @close="handleClose"
               background-color="#545c64"
               text-color="#fff"
               active-text-color="#ffd04b"
+              router
             >
-              <el-menu-item index="1">
+              <el-menu-item index="/Psychologist">
                   <i class="el-icon-location"></i>
-                  <span slot="title">导航一</span>
+                  <span slot="title">心理医生管理</span>
               </el-menu-item>
               <el-menu-item index="2">
                 <i class="el-icon-menu"></i>
@@ -33,6 +34,9 @@
           </el-col>
         </el-row>
       </div>
+      <div class="right-content">
+      <router-view />
+    </div>
     </div>
   </div>
 </template>
@@ -50,5 +54,5 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-    @import "@/css/backStage.scss";
+    @import "@/css/AdminLayout.scss";
 </style>

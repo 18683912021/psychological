@@ -6,7 +6,8 @@ import contact from "@/views/contact.vue";
 import Online from "@/views/Online.vue";
 import Product from "@/views/Product.vue";
 import Login from "@/views//login/login.vue";
-import BackStage from "@/views/backStage/backStage.vue";
+import AdminLayout from "@/views/backStage/Layout.vue";
+import Psychologist from "@/views/backStage/component/psychologist.vue";
 
 Vue.use(VueRouter);
 
@@ -52,12 +53,23 @@ const routes = [
     },
   },
   {
-    path: "/backStage",
-    name: "BackStage",
-    component: BackStage,
+    path: "/AdminLayout",
+    name: "AdminLayout",
+    component: AdminLayout,
     meta: {
       title: "后台管理",
     },
+    redirect: { name: "Psychologist" },
+    children: [
+      {
+        path: "Psychologist",
+        name: "Psychologist",
+        component: Psychologist,
+        meta: {
+          title: "心理医生管理",
+        },
+      },
+    ],
   },
   {
     path: "/login",

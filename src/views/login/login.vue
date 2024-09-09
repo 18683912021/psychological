@@ -5,15 +5,20 @@
         label-width="80px"
         label-position="right"
         :model="ruleForm"
-        :rules="rules"
         ref="ruleForm"
         class="demo-ruleForm"
       >
         <el-form-item label="用户名：" prop="username">
-          <el-input v-model="ruleForm.username" placeholder="请输入用户名"></el-input>
+          <el-input
+            v-model="ruleForm.username"
+            placeholder="请输入用户名"
+          ></el-input>
         </el-form-item>
         <el-form-item label="密码：" prop="password">
-          <el-input v-model="ruleForm.password" placeholder="请输入密码"></el-input>
+          <el-input
+            v-model="ruleForm.password"
+            placeholder="请输入密码"
+          ></el-input>
         </el-form-item>
         <el-form-item prop="identity">
           <el-radio-group v-model="ruleForm.identity">
@@ -24,7 +29,10 @@
         </el-form-item>
         <!-- 登录按钮 -->
         <el-form-item class="btn">
-          <el-button style="width: 100%;margin: 0 auto" type="primary" @click="submitForm('ruleForm')"
+          <el-button
+            style="width: 100%; margin: 0 auto"
+            type="primary"
+            @click="submitForm('ruleForm')"
             >登录</el-button
           >
         </el-form-item>
@@ -34,6 +42,7 @@
 </template>
 
 <script>
+import { login } from "@/service/api/index";
 export default {
   name: "Home",
   data() {
@@ -41,16 +50,18 @@ export default {
       ruleForm: {
         username: "",
         password: "",
-        identity: "1",
+        type: "1",
       },
     };
   },
   components: {},
-  methods:{
-    submitForm(){
-      this.$router.push("/")
+  methods: {
+    async submitForm() {
+      const result = await login(this.ruleForm);
+      console.log(result)
+      // this.$router.push("/")
     },
-  }
+  },
 };
 </script>
 <style scoped lang="scss">

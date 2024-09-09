@@ -1,7 +1,7 @@
 import request from '../request';
-export function query_subcategory(data) {
+export function login(data) {
   return request({
-    url: "/query_subcategory",
+    url: "/p/user/login",
     method: "post",
     data,
   });

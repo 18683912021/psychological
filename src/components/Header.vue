@@ -89,7 +89,7 @@ export default {
       this.$router.push("/Online");
     },
     contact() {
-      this.$router.push("/backStage");
+      this.$router.push("/AdminLayout");
     },
     // contact() {
     //   this.$router.push("/contact");
