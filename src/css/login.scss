@@ -1,11 +1,18 @@
 .login {
     overflow: hidden;
     background-color: #f6f6f6;
+    background: url(../../assets/Home/timg.jpg) no-repeat;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+
     .header {
         .top-right {
             ul {
                 .loginBtn {
                     border-bottom: 0.125rem solid rgb(255, 208, 75);
+
                     p {
                         color: rgb(255, 208, 75);
                     }
@@ -13,14 +20,32 @@
             }
         }
     }
+
+    .login-content {
+        width: 23rem;
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 20px;
+        margin: 0 auto;
+
+        ::v-deep .el-form-item__label {
+            color: white;
+        }
+
+        ::v-deep .el-radio__label {
+            color: white;
+        }
+        .btn{
+            ::v-deep .el-form-item__content{
+                margin-left: 0 !important;
+            }
+        }
+    }
 }
+
 @media screen and (max-width: 62.5rem) {
-    .login {
-      
-    }
+    .login {}
 }
-@media screen and (max-width: 31.25rem){
-    .login {
-        
-    }
+
+@media screen and (max-width: 31.25rem) {
+    .login {}
 }

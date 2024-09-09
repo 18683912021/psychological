@@ -2,7 +2,7 @@
   <div class="online">
     <Header></Header>
     <div class="box"></div>
-    <p class="way">首页>在线文档</p>
+    <p class="way">首页>公告资讯</p>
     <div class="middle">
       <div class="middle-content">
         <div class="content-left">

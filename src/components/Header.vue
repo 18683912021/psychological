@@ -4,7 +4,7 @@
       <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="10" class="top-left">
         <div class="top-left-little">
           <h1>
-            <img src="@/assets/logo.png" alt="">
+            <img src="@/assets/logo.png" alt="" />
           </h1>
           <p class="title">心理辅导平台</p>
         </div>
@@ -20,32 +20,32 @@
             </li>
             <li class="zx" @click="information()">
               <p>
-                <span>资讯</span>
+                <span>心理知识</span>
                 <span>Information</span>
               </p>
             </li>
             <li class="cp" @click="product()">
               <p>
-                <span>产品</span>
-                <span>Product</span>
+                <span>交流论坛</span>
+                <span>Exchange Forum</span>
               </p>
             </li>
             <li class="wd" @click="online()">
               <p>
-                <span>个人中心</span>
-                <span>Personal Center</span>
+                <span>公告资讯</span>
+                <span>Announcement Information</span>
               </p>
             </li>
             <li class="lx" @click="contact()">
               <p>
-                <span>联系我们</span>
-                <span>Contact US</span>
+                <span>后台管理</span>
+                <span>back-stage management</span>
               </p>
             </li>
             <li class="loginBtn" @click="login()">
               <p>
-                <span>{{loginText.cn}}</span>
-                <span>{{loginText.en}}</span>
+                <span>{{ loginText.cn }}</span>
+                <span>{{ loginText.en }}</span>
               </p>
             </li>
           </ul>
@@ -60,24 +60,24 @@ import "@/components/header.scss";
 export default {
   data() {
     return {
-      loginText:{
-        cn:'登录',
-        en:'Login'
-      }
+      loginText: {
+        cn: "登录",
+        en: "Login",
+      },
     };
   },
   mounted() {
-    const token = localStorage.getItem('token')
-    if(token){
+    const token = localStorage.getItem("token");
+    if (token) {
       this.loginText = {
-        cn:'退出',
-        en:'Logout'
-      }
+        cn: "退出",
+        en: "Logout",
+      };
     }
   },
   methods: {
-    login(){
-      this.$router.push("/login")
+    login() {
+      this.$router.push("/login");
     },
     home() {
       this.$router.push("/");
@@ -85,15 +85,18 @@ export default {
     information() {
       this.$router.push("/Information");
     },
-    contact(){
-      this.$router.push("/contact")
+    online() {
+      this.$router.push("/Online");
     },
-    online(){
-      this.$router.push("/Online")
+    contact() {
+      this.$router.push("/backStage");
     },
-    product(){
-      this.$router.push("/Product")
-    }
-  }
+    // contact() {
+    //   this.$router.push("/contact");
+    // },
+    product() {
+      this.$router.push("/Product");
+    },
+  },
 };
 </script>

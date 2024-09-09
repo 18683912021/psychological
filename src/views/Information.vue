@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-      <p class="way">首页>资讯</p>
+      <p class="way">首页>心理知识</p>
       <div class="big-title">
         <p>我们用心于每一件产品，这里总有一款适合你的</p>
       </div>

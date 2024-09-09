@@ -1,0 +1,26 @@
+.backStage {
+    height: 100vh;
+    // display: flex;
+    // flex-direction: column;
+
+    .content {
+        // flex: 1;
+        // overflow-y: auto;
+
+        .left-nav {
+            height: 100vh;
+            width: 10vw;
+
+            .tac {
+                ::v-deep .el-menu-vertical-demo {
+                    height: calc(100vh - 25px);
+                    padding: 20px 0 0 0;
+                    overflow: hidden;
+                    .is-active{
+                        background-color:rgb(67,74,80) !important
+                    }
+                }
+            }
+        }
+    }
+}

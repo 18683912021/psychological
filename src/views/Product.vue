@@ -6,7 +6,7 @@
       <div class="banner">
         <div class="banner-content"></div>
       </div>
-      <p class="way">首页>产品</p>
+      <p class="way">首页>交流论坛</p>
       <div class="flow">
         <div class="flow-title">
           <p class="big-title">专业团队，流程规范，制定一站式解决方案</p>

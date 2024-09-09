@@ -6,6 +6,7 @@ import contact from "@/views/contact.vue";
 import Online from "@/views/Online.vue";
 import Product from "@/views/Product.vue";
 import Login from "@/views//login/login.vue";
+import BackStage from "@/views/backStage/backStage.vue";
 
 Vue.use(VueRouter);
 
@@ -23,7 +24,7 @@ const routes = [
     name: "Information",
     component: Information,
     meta: {
-      title: "资讯",
+      title: "心理知识",
     },
   },
   {
@@ -31,7 +32,7 @@ const routes = [
     name: "contact",
     component: contact,
     meta: {
-      title: "联系我们",
+      title: "后台管理",
     },
   },
   {
@@ -39,7 +40,7 @@ const routes = [
     name: "Online",
     component: Online,
     meta: {
-      title: "在线文档",
+      title: "公告资讯",
     },
   },
   {
@@ -47,7 +48,15 @@ const routes = [
     name: "Product",
     component: Product,
     meta: {
-      title: "产品",
+      title: "交流论坛",
+    },
+  },
+  {
+    path: "/backStage",
+    name: "BackStage",
+    component: BackStage,
+    meta: {
+      title: "后台管理",
     },
   },
   {
