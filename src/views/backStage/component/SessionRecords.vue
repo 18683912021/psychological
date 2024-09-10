@@ -36,8 +36,10 @@
         >
           <el-table-column prop="id" label="id"> </el-table-column>
           <el-table-column prop="phone" label="用户手机号"> </el-table-column>
-          <el-table-column prop="sessionTime" label="会话时间"> </el-table-column>
-          <el-table-column prop="therapistName" label="指导师姓名"> </el-table-column>
+          <el-table-column prop="sessionTime" label="会话时间">
+          </el-table-column>
+          <el-table-column prop="therapistName" label="指导师姓名">
+          </el-table-column>
           <el-table-column prop="userName" label="用户姓名"> </el-table-column>
         </el-table>
         <div style="text-align: right">
@@ -110,7 +112,12 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取消</el-button>
-        <el-button v-if="editForm.roleType === 2" type="primary" @click="saveEdit">保存</el-button>
+        <el-button
+          v-if="editForm.roleType === 2"
+          type="primary"
+          @click="saveEdit"
+          >保存</el-button
+        >
       </span>
     </el-dialog>
   </div>
@@ -123,7 +130,7 @@ export default {
   data() {
     return {
       loading: false,
-      total:0,
+      total: 0,
       searchData: {
         pageNumber: 1,
         pageSize: 20,
@@ -157,11 +164,16 @@ export default {
     },
     queryList() {
       this.loading = true;
-      listSession(this.searchData).then((res) => {
-        this.loading = false;
-        this.tableData = res.data.data.records;
-        this.total = res.data.data.total;
-      });
+      listSession(this.searchData)
+        .then((res) => {
+          this.loading = false;
+          this.tableData = res.data.data.records;
+          this.total = res.data.data.total;
+        })
+        .catch((err) => {
+          this.$message.error(err.data.msg);
+          this.loading = false;
+        });
     },
     home() {
       this.$router.push("/");
@@ -169,10 +181,10 @@ export default {
     onSubmit() {
       this.queryList();
     },
-    editRow(row,type) {
-      if(type === 1){
+    editRow(row, type) {
+      if (type === 1) {
         this.formDisabled = true;
-      }else{
+      } else {
         this.formDisabled = false;
       }
       this.editForm = Object.keys(this.editForm).reduce((acc, key) => {

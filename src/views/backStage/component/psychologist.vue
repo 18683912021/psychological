@@ -63,10 +63,10 @@
           </el-table-column>
           <el-table-column fixed="right" label="操作" width="100">
             <template slot-scope="scope">
-              <el-button @click="editRow(scope.row,1)" type="text" size="small"
+              <el-button @click="editRow(scope.row, 1)" type="text" size="small"
                 >查看</el-button
               >
-              <el-button @click="editRow(scope.row,2)" type="text" size="small"
+              <el-button @click="editRow(scope.row, 2)" type="text" size="small"
                 >编辑</el-button
               >
             </template>
@@ -142,7 +142,9 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取消</el-button>
-        <el-button v-if="!formDisabled" type="primary" @click="saveEdit">保存</el-button>
+        <el-button v-if="!formDisabled" type="primary" @click="saveEdit"
+          >保存</el-button
+        >
       </span>
     </el-dialog>
   </div>
@@ -154,7 +156,7 @@ import { getMatchPherapist, editMatchPherapist } from "@/service/api";
 export default {
   data() {
     return {
-      total:0,
+      total: 0,
       loading: false,
       searchData: {
         pageNumber: 1,
@@ -190,11 +192,16 @@ export default {
     },
     queryList() {
       this.loading = true;
-      getMatchPherapist(this.searchData).then((res) => {
-        this.loading = false;
-        this.tableData = res.data.data.records;
-        this.total = res.data.data.total;
-      });
+      getMatchPherapist(this.searchData)
+        .then((res) => {
+          this.loading = false;
+          this.tableData = res.data.data.records;
+          this.total = res.data.data.total;
+        })
+        .catch((err) => {
+          this.$message.error(err.data.msg);
+          this.loading = false;
+        });
     },
     home() {
       this.$router.push("/");
@@ -202,10 +209,10 @@ export default {
     onSubmit() {
       this.queryList();
     },
-    editRow(row,type) {
-      if(type === 1){
+    editRow(row, type) {
+      if (type === 1) {
         this.formDisabled = true;
-      }else{
+      } else {
         this.formDisabled = false;
       }
       this.editForm = Object.keys(this.editForm).reduce((acc, key) => {
