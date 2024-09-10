@@ -27,7 +27,7 @@ module.exports = {
     open: true, // 启动后自动打开浏览器
     proxy: {
       '/api': {
-        target: 'http://162.14.111.211:8091/', // 代理目标服务器
+        target: 'http://162.14.111.211:8092', // 代理目标服务器
         changeOrigin: true, // 是否跨域
         pathRewrite: { '^/api': '' }, // 重写路径
       },

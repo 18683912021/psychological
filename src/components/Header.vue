@@ -67,11 +67,16 @@ export default {
     };
   },
   mounted() {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("TOKEN");
     if (token) {
       this.loginText = {
         cn: "退出",
         en: "Logout",
+      };
+    }else{
+      this.loginText = {
+        cn: "登录",
+        en: "Login",
       };
     }
   },

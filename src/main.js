@@ -10,6 +10,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import VueAMap from 'vue-amap';
 Vue.use(VueAMap);
+
+// 全局主策element提示
+Vue.prototype.$message = ElementUI.Message;
  
 // 初始化vue-amap
 VueAMap.initAMapApiLoader({

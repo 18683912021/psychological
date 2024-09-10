@@ -27,7 +27,7 @@
           ></el-input>
         </el-form-item>
         <el-form-item prop="identity">
-          <el-radio-group v-model="ruleForm.type">
+          <el-radio-group v-model="ruleForm.roleType">
             <el-radio label="1">管理员</el-radio>
             <el-radio label="2">用户</el-radio>
             <el-radio label="3">心理医生</el-radio>
@@ -60,7 +60,7 @@ export default {
         phone: "",
         name: "",
         password: "",
-        type: "1",
+        roleType: "1",
       },
     };
   },
@@ -72,8 +72,13 @@ export default {
     async submitForm() {
       let url = this.type !== "登录" ? login : register;
       const result = await url(this.ruleForm);
-      if (result.data.msg === "登录成功") {
+      if (result.data.code == 1000) {
+        this.$message.success(this.type === "登录" ? "注册成功" : "登录成功");
+        //登录成功存token
+        localStorage.setItem("TOKEN", result.data.data.token);
         this.$router.push("/");
+      } else {
+        this.$message.error(result.data.msg);
       }
       console.log(result);
     },
@@ -84,6 +89,7 @@ export default {
 @import "@/css/login.scss";
 .loginType {
   position: absolute;
+  cursor: pointer;
   z-index: 1;
   button: 0px;
   right: 0px;
