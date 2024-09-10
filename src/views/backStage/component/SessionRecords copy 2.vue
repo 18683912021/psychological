@@ -11,19 +11,19 @@
       <el-form :inline="true" class="demo-form-inline">
         <el-form-item label="姓名">
           <el-input
-            v-model="form.name"
+            v-model="searchData.name"
             placeholder="请输入用户、咨询师姓名"
           ></el-input>
         </el-form-item>
         <el-form-item label="用户类型">
-          <el-select v-model="form.roleType" placeholder="请选择">
+          <el-select v-model="searchData.roleType" placeholder="请选择">
             <el-option label="用户" value="1"></el-option>
             <el-option label="咨询师" value="2"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="手机号">
           <el-input
-            v-model="form.phone"
+            v-model="searchData.phone"
             placeholder="请输入用户、咨询师手机号"
           ></el-input>
         </el-form-item>
@@ -37,20 +37,9 @@
           :data="tableData"
           border
           v-loading="loading"
-          style="width: 100%; margin-bottom: 10px;height: calc(100vh - 250px);"
+          :max-height="600"
+          style="width: 100%; margin-bottom: 10px; height: calc(100vh - 250px)"
         >
-          <!-- <el-table-column
-            prop="appointmentStartTime"
-            label="可预约开始时间"
-            show-overflow-tooltip
-          >
-          </el-table-column>
-          <el-table-column
-            prop="appointmentEndTime"
-            label="可预约结束时间"
-            show-overflow-tooltip
-          >
-          </el-table-column> -->
           <el-table-column prop="name" label="姓名"> </el-table-column>
           <el-table-column prop="gender" label="性别">
             <template slot-scope="scope">
@@ -73,13 +62,12 @@
           </el-table-column>
           <el-table-column fixed="right" label="操作" width="100">
             <template slot-scope="scope">
-              <el-button
-                @click="handleClick(scope.row)"
-                type="text"
-                size="small"
+              <el-button @click="editRow(scope.row,1)" type="text" size="small"
                 >查看</el-button
               >
-              <el-button type="text" size="small">编辑</el-button>
+              <el-button @click="editRow(scope.row,2)" type="text" size="small"
+                >编辑</el-button
+              >
             </template>
           </el-table-column>
         </el-table>
@@ -97,32 +85,96 @@
         </div>
       </div>
     </div>
+
+    <!-- 修改弹窗 -->
+    <el-dialog
+      title="编辑信息"
+      :visible.sync="editDialogVisible"
+      width="40%"
+      @close="resetEditForm"
+    >
+      <el-form v-model="editForm" label-width="100px" :disabled="formDisabled">
+        <el-row :gutter="24">
+          <el-col :span="12">
+            <el-form-item label="姓名">
+              <el-input v-model="editForm.name" placeholder="请输入姓名" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="性别">
+              <el-select v-model="editForm.gender" placeholder="请选择性别">
+                <el-option label="男" :value="0" />
+                <el-option label="女" :value="1" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="手机号">
+              <el-input v-model="editForm.phone" placeholder="请输入手机号" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="用户类型">
+              <el-select
+                v-model="editForm.roleType"
+                placeholder="请选择用户类型"
+              >
+                <el-option label="用户" :value="1" />
+                <el-option label="咨询师" :value="2" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <!-- <el-col :span="12">
+            <el-form-item label="密码">
+              <el-input v-model="editForm.password" placeholder="请输入密码" />
+            </el-form-item>
+          </el-col> -->
+          <el-col :span="24" v-if="editForm.roleType === 2">
+            <el-form-item label="专业">
+              <el-input
+                v-model="editForm.specialization"
+                placeholder="请输入专业"
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible = false">取消</el-button>
+        <el-button v-if="editForm.roleType === 2" type="primary" @click="saveEdit">保存</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getMatchPherapist } from "@/service/api";
+import { getMatchPherapist, editMatchPherapist } from "@/service/api";
 
 export default {
   data() {
     return {
       loading: false,
-      form: {
-        name: "",
-        roleType: "",
-        phone: "",
-      },
       searchData: {
         pageNumber: 1,
         pageSize: 20,
         name: "",
+        roleType: "2",
+        phone: "",
       },
+      formDisabled: false,
       tableData: [],
+      editDialogVisible: false,
+      editForm: {
+        name: "",
+        gender: 0,
+        phone: "",
+        roleType: 1,
+        specialization: "",
+      },
     };
   },
 
   mounted() {
-    console.log(123);
     this.queryList();
   },
   methods: {
@@ -137,7 +189,6 @@ export default {
     queryList() {
       this.loading = true;
       getMatchPherapist(this.searchData).then((res) => {
-        console.log(res.data.data.records);
         this.loading = false;
         this.tableData = res.data.data.records;
       });
@@ -146,9 +197,43 @@ export default {
       this.$router.push("/");
     },
     onSubmit() {
-      this.queryList()
+      this.queryList();
     },
-    handleClick(row) {},
+    editRow(row,type) {
+      if(type === 1){
+        this.formDisabled = true;
+      }else{
+        this.formDisabled = false;
+      }
+      this.editForm = Object.keys(this.editForm).reduce((acc, key) => {
+        if (row.hasOwnProperty(key)) {
+          acc[key] = row[key]; // 仅保留 row 中存在的字段
+        }
+        return acc;
+      }, {});
+      this.editDialogVisible = true;
+    },
+    saveEdit() {
+      // 在此处理保存逻辑，比如发请求更新数据
+      this.editDialogVisible = false;
+      editMatchPherapist(this.editForm).then((res) => {
+        if (res.data.code == 1000) {
+          this.$message.success("修改成功");
+          this.queryList(); // 刷新表格数据
+        } else {
+          this.$message.error(res.data.msg);
+        }
+      });
+    },
+    resetEditForm() {
+      this.editForm = {
+        name: "",
+        gender: 0,
+        phone: "",
+        roleType: 1,
+        specialization: "",
+      };
+    },
   },
 };
 </script>

@@ -16,12 +16,20 @@ service.interceptors.request.use(
       config.headers["Authorization"] = token;
       // config.headers['Authorization'] = 'Bearer ' + token;
     }
-    Object.keys(config.params).forEach((key) => {
-      if (config.params[key] === null || config.params[key] === undefined || config.params[key] === '') {
-        delete config.params[key];
-      }
-    });
-    console.log(config)
+    if(config?.params){
+      Object.keys(config.params).forEach((key) => {
+        if (config.params[key] === null || config.params[key] === undefined || config.params[key] === '') {
+          delete config.params[key];
+        }
+      });
+    }else{
+      Object.keys(config.data).forEach((key) => {
+        if (config.data[key] === null || config.data[key] === undefined || config.data[key] === '') {
+          delete config.data[key];
+        }
+      });
+    }
+    
     return config;
   },
   (error) => {

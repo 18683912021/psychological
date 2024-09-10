@@ -14,22 +14,22 @@
               active-text-color="#ffd04b"
               router
             >
-              <el-menu-item index="/Psychologist">
+              <el-menu-item index="/AdminLayout/Psychologist">
                   <i class="el-icon-location"></i>
                   <span slot="title">心理医生管理</span>
               </el-menu-item>
-              <el-menu-item index="2">
+              <el-menu-item index="/AdminLayout/SessionRecords">
                 <i class="el-icon-menu"></i>
-                <span slot="title">导航二</span>
+                <span slot="title">咨询记录管理</span>
               </el-menu-item>
-              <el-menu-item index="3">
+              <!-- <el-menu-item index="3">
                 <i class="el-icon-document"></i>
                 <span slot="title">导航三</span>
               </el-menu-item>
               <el-menu-item index="4">
                 <i class="el-icon-setting"></i>
                 <span slot="title">导航四</span>
-              </el-menu-item>
+              </el-menu-item> -->
             </el-menu>
           </el-col>
         </el-row>

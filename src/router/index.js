@@ -8,6 +8,7 @@ import Product from "@/views/Product.vue";
 import Login from "@/views//login/login.vue";
 import AdminLayout from "@/views/backStage/Layout.vue";
 import Psychologist from "@/views/backStage/component/psychologist.vue";
+import SessionRecords from "@/views/backStage/component/SessionRecords.vue";
 
 Vue.use(VueRouter);
 
@@ -67,6 +68,14 @@ const routes = [
         component: Psychologist,
         meta: {
           title: "心理医生管理",
+        },
+      },
+      {
+        path: "SessionRecords",
+        name: "SessionRecords",
+        component: SessionRecords,
+        meta: {
+          title: "预约记录管理",
         },
       },
     ],

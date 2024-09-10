@@ -37,10 +37,9 @@
           :data="tableData"
           border
           v-loading="loading"
-          height="calc(100vh - 250px)"
+          :max-height="600"
           style="width: 100%; margin-bottom: 10px; height: calc(100vh - 250px)"
         >
-          <el-table-column prop="id" label="id"> </el-table-column>
           <el-table-column prop="name" label="姓名"> </el-table-column>
           <el-table-column prop="gender" label="性别">
             <template slot-scope="scope">
@@ -80,7 +79,7 @@
             :page-sizes="[20, 200, 300, 400]"
             :page-size="searchData.pageSize"
             layout="sizes, prev, pager, next"
-            :total="total"
+            :total="tableData.length"
           >
           </el-pagination>
         </div>
@@ -154,7 +153,6 @@ import { getMatchPherapist, editMatchPherapist } from "@/service/api";
 export default {
   data() {
     return {
-      total:0,
       loading: false,
       searchData: {
         pageNumber: 1,
@@ -193,7 +191,6 @@ export default {
       getMatchPherapist(this.searchData).then((res) => {
         this.loading = false;
         this.tableData = res.data.data.records;
-        this.total = res.data.data.total;
       });
     },
     home() {
