@@ -3,7 +3,7 @@
     <div class="admin-header">
       <div>
         <span style="color: #fff; cursor: pointer" @click="home()">首页</span>
-        > 心理医生管理
+        > 咨询记录管理
       </div>
     </div>
     <!-- 查询form表单 -->

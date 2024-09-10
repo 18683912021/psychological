@@ -41,3 +41,21 @@ export function listSession(data) {
     params: data,
   });
 }
+
+//个人中心 /p/admin/info
+export function getUserInfo(data) {
+  return request({
+    url: "/p/admin/info",
+    method: "get",
+    params: data,
+  });
+}
+
+//编辑用户、咨询师信息 /p/admin/edit
+export function editUserInfo(data) {
+  return request({
+    url: "/p/admin/edit",
+    method: "post",
+    data,
+  });
+}

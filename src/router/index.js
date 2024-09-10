@@ -9,6 +9,7 @@ import Login from "@/views//login/login.vue";
 import AdminLayout from "@/views/backStage/Layout.vue";
 import Psychologist from "@/views/backStage/component/psychologist.vue";
 import SessionRecords from "@/views/backStage/component/SessionRecords.vue";
+import PersonalCenter from "@/views/backStage/component/PersonalCenter.vue";
 
 Vue.use(VueRouter);
 
@@ -76,6 +77,14 @@ const routes = [
         component: SessionRecords,
         meta: {
           title: "预约记录管理",
+        },
+      },
+      {
+        path: "PersonalCenter",
+        name: "PersonalCenter",
+        component: PersonalCenter,
+        meta: {
+          title: "个人中心",
         },
       },
     ],

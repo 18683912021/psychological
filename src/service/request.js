@@ -22,7 +22,8 @@ service.interceptors.request.use(
           delete config.params[key];
         }
       });
-    }else{
+    }else if(config?.data){
+      
       Object.keys(config.data).forEach((key) => {
         if (config.data[key] === null || config.data[key] === undefined || config.data[key] === '') {
           delete config.data[key];

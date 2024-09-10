@@ -142,7 +142,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取消</el-button>
-        <el-button v-if="editForm.roleType === 2" type="primary" @click="saveEdit">保存</el-button>
+        <el-button v-if="!formDisabled" type="primary" @click="saveEdit">保存</el-button>
       </span>
     </el-dialog>
   </div>
