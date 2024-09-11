@@ -34,7 +34,7 @@
           height="calc(100vh - 250px)"
           style="width: 100%; margin-bottom: 10px; height: calc(100vh - 250px)"
         >
-          <el-table-column prop="id" label="id"> </el-table-column>
+          <el-table-column prop="userId" label="id"> </el-table-column>
           <el-table-column prop="phone" label="用户手机号"> </el-table-column>
           <el-table-column prop="sessionTime" label="会话时间">
           </el-table-column>
@@ -46,7 +46,7 @@
           <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page.sync="searchData.pageNumber"
+            :current-page.sync="searchData.pageCurrent"
             :page-sizes="[20, 200, 300, 400]"
             :page-size="searchData.pageSize"
             layout="sizes, prev, pager, next"
@@ -132,7 +132,7 @@ export default {
       loading: false,
       total: 0,
       searchData: {
-        pageNumber: 1,
+        pageCurrent: 1,
         pageSize: 20,
         userId: "",
         therapistId: "",
@@ -159,18 +159,21 @@ export default {
       this.queryList();
     },
     handleCurrentChange(val) {
-      this.searchData.pageNumber = val;
+      this.searchData.pageCurrent = val;
       this.queryList();
     },
     queryList() {
       this.loading = true;
+      this.searchData.pageCurrent = 1;
       listSession(this.searchData)
         .then((res) => {
+          console.log(res.data.data?.records)
           this.loading = false;
-          this.tableData = res.data.data.records;
-          this.total = res.data.data.total;
+          this.tableData = res.data.data?.records;
+          this.total = res.data.data?.total;
         })
         .catch((err) => {
+          console.log(err)
           this.$message.error(err.data.msg);
           this.loading = false;
         });

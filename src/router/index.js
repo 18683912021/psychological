@@ -43,7 +43,7 @@ const routes = [
     name: "Online",
     component: Online,
     meta: {
-      title: "公告资讯",
+      title: "在线咨询",
     },
   },
   {

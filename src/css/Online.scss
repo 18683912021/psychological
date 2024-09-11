@@ -1,11 +1,13 @@
 .online {
     overflow: hidden;
     background-color: #f6f6f6;
+
     .header {
         .top-right {
             ul {
                 .wd {
                     border-bottom: 0.125rem solid rgb(255, 208, 75);
+
                     p {
                         color: rgb(255, 208, 75);
                     }
@@ -13,106 +15,143 @@
             }
         }
     }
+
     // .box{
     //     height: 5rem;
     // }
     .way {
         margin-top: 1rem;
-        margin-bottom: 6.25rem;
+        margin-bottom: 3.25rem;
         text-align: left;
         padding-left: 19vw;
         color: #666;
         font-size: .5625rem;
     }
-    .middle{
-        margin: 6.25rem 0 12.5rem 0;
-        .middle-content{
+
+    .middle {
+        margin: 0 0 6.5rem 0;
+
+        .middle-content {
             width: 75rem;
             display: flex;
             background-color: white;
             margin: 0 auto;
-            .content-left{
+
+            .content-left {
                 font-size: 0.875rem;
                 // background-color: #40BDFF;
                 width: 18.75rem;
-                padding-top: 3.125rem;
+                height: 31.25rem;
+                display: flex;
+                flex-direction: column;
+                // padding-top: 3.125rem;
                 border-right: 1px solid #e8e8e8;
-                p{
-                    line-height: 1.875rem;
-                    cursor: pointer;
-                }
-                p:hover {
-                    color: #3e82ff;
+
+                .user-list {
+                    flex: 1;
+                    overflow-y: auto;
+
+                    p {
+                        line-height: 50px;
+
+                        cursor: pointer;
+                    }
+
+                    .active {
+                        color: #3e82ff;
+                        background-color: rgba(0, 0, 0, 0.1);
+                    }
+
+                    p:hover {
+                        color: #3e82ff;
+                    }
                 }
             }
-            .content-right{
-                width: 56.25rem;
-                text-align: center;
+
+            .content-right {
+                flex: 1;
                 display: flex;
-                align-items: center;
-                font-size: 1.75rem;
-                height: 31.25rem;
-                p{
-                    width: 56.25rem;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 500px;
+
+                .chat-content {
+                    flex: 1;
+                    overflow-y: auto;
+                    padding: 10px;
+                    display: flex;
+                    flex-direction: column;
                 }
+
             }
         }
     }
 }
+
 @media screen and (max-width: 75rem) {
     .online {
-        .box{
+        .box {
             height: 10rem;
         }
 
     }
 }
+
 @media screen and (max-width: 62.5rem) {
     .online {
-        .box{
+        .box {
             height: 0;
         }
+
         .way {
             margin-top: 1rem;
             margin-bottom: 0rem;
         }
-        .middle{
+
+        .middle {
             margin: 2rem 0 3rem 0;
-            .middle-content{
+
+            .middle-content {
                 width: 100vw;
                 display: flex;
                 background-color: white;
                 margin: 0 auto;
-                .content-left{
+
+                .content-left {
                     font-size: 0.875rem;
                     // background-color: #40BDFF;
                     width: 30vw;
                     padding-top: 3.125rem;
                     border-right: 0.0625rem solid #e8e8e8;
-                    p{
+
+                    p {
                         line-height: 1.875rem;
                         cursor: pointer;
                     }
+
                     p:hover {
                         color: #3e82ff;
                     }
                 }
-                .content-right{
-                    width: 70vw;
-                    text-align: center;
-                    display: flex;
-                    align-items: center;
-                    font-size: 1.75rem;
-                    height: 31.25rem;
-                    p{
-                        width: 56.25rem;
-                    }
-                }
+
+                // .content-right {
+                //     width: 70vw;
+                //     text-align: center;
+                //     display: flex;
+                //     align-items: center;
+                //     font-size: 1.75rem;
+                //     height: 31.25rem;
+
+                //     p {
+                //         width: 56.25rem;
+                //     }
+                // }
             }
         }
     }
 }
-@media screen and (max-width: 31.25rem){
+
+@media screen and (max-width: 31.25rem) {
     .online {
         .middle {
             .banner {
