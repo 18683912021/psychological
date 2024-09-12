@@ -12,7 +12,11 @@
       </div>
       <p class="way">首页>心理知识</p>
       <div class="big-title">
-        <p>我们用心于每一件产品，这里总有一款适合你的</p>
+        <p>
+          我们的疏导师也同时是国家认证的执证心理咨询师。
+          他们有敏锐思维和专业知识， 但他们也和知己密友一样亲切，
+          和谈心主播一样贴心。
+        </p>
       </div>
       <div class="box">
         <div class="list1">
@@ -20,10 +24,10 @@
             <div class="left"></div>
             <div class="right">
               <div class="box">
-                <p class="title">华为心声社区＋华为微博</p>
-              <p
-                class="detail"
-              >华为心声社区基于ThinkSNS设计理念，用户需求，成功通过ThinkSNS构建“华为人的沟通家园”，实施Sociax Enterpirse企业社区解决方案，快速支撑起华为公司核心价值传递、政策文件学习、员工七彩生活、行政服务窗等业务，注重人文建设。 案例地址：http://xinsheng.huawei.com/</p>
+                <p class="title">走出情绪内耗的根本方法，有且只有一个</p>
+                <p class="detail">
+                  通过心理咨询进行疗愈的过程，充满了黑暗和痛苦，并不容易。但是总体状况是螺旋式上升的进步，这就已经非常棒了。
+                </p>
               </div>
             </div>
           </div>
@@ -33,10 +37,10 @@
             <div class="left"></div>
             <div class="right">
               <div class="box">
-                <p class="title">华为心声社区＋华为微博</p>
-              <p
-                class="detail"
-              >华为心声社区基于ThinkSNS设计理念，用户需求，成功通过ThinkSNS构建“华为人的沟通家园”，实施Sociax Enterpirse企业社区解决方案，快速支撑起华为公司核心价值传递、政策文件学习、员工七彩生活、行政服务窗等业务，注重人文建设。 案例地址：http://xinsheng.huawei.com/</p>
+                <p class="title">别人都能适应，为什么就你不行？</p>
+                <p class="detail">
+                  「做不到」不是你的错，你不需要为了满足父母的期待而活着。
+                </p>
               </div>
             </div>
           </div>
@@ -46,10 +50,10 @@
             <div class="left"></div>
             <div class="right">
               <div class="box">
-                <p class="title">华为心声社区＋华为微博</p>
-              <p
-                class="detail"
-              >华为心声社区基于ThinkSNS设计理念，用户需求，成功通过ThinkSNS构建“华为人的沟通家园”，实施Sociax Enterpirse企业社区解决方案，快速支撑起华为公司核心价值传递、政策文件学习、员工七彩生活、行政服务窗等业务，注重人文建设。 案例地址：http://xinsheng.huawei.com/</p>
+                <p class="title">“我以为父母离婚，都是我的错”：止不住的自我厌恶，将我拖入双相障碍的沼泽</p>
+                <p class="detail">
+                  “我以为父母离婚，都是我的错”：止不住的自我厌恶，将我拖入双相障碍的沼泽
+                </p>
               </div>
             </div>
           </div>
@@ -59,10 +63,10 @@
             <div class="left"></div>
             <div class="right">
               <div class="box">
-                <p class="title">华为心声社区＋华为微博</p>
-              <p
-                class="detail"
-              >华为心声社区基于ThinkSNS设计理念，用户需求，成功通过ThinkSNS构建“华为人的沟通家园”，实施Sociax Enterpirse企业社区解决方案，快速支撑起华为公司核心价值传递、政策文件学习、员工七彩生活、行政服务窗等业务，注重人文建设。 案例地址：http://xinsheng.huawei.com/</p>
+                <p class="title">“丧偶式育儿”的中年女性，困在婚姻牢笼里</p>
+                <p class="detail">
+                  在这间咨询室里，我可以毫无负担地褪去所有社会身份，仅仅是“我”。在这间咨询室里，我得以被一个人坚定地选择，被全身心地关注、看见、理解、共情。
+                </p>
               </div>
             </div>
           </div>
@@ -85,7 +89,7 @@ export default {
   },
   components: {
     Header,
-    Footer
-  }
+    Footer,
+  },
 };
 </script>
