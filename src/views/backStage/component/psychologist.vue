@@ -76,7 +76,7 @@
           <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page.sync="searchData.pageNumber"
+            :current-page.sync="searchData.pageCurrent"
             :page-sizes="[20, 200, 300, 400]"
             :page-size="searchData.pageSize"
             layout="sizes, prev, pager, next"
@@ -159,10 +159,10 @@ export default {
       total: 0,
       loading: false,
       searchData: {
-        pageNumber: 1,
+        pageCurrent: 1,
         pageSize: 20,
         name: "",
-        roleType: "2",
+        roleType: "1",
         phone: "",
       },
       formDisabled: false,
@@ -187,7 +187,7 @@ export default {
       this.queryList();
     },
     handleCurrentChange(val) {
-      this.searchData.pageNumber = val;
+      this.searchData.pageCurrent = val;
       this.queryList();
     },
     queryList() {
@@ -207,6 +207,7 @@ export default {
       this.$router.push("/");
     },
     onSubmit() {
+      this.searchData.pageCurrent = 1;
       this.queryList();
     },
     editRow(row, type) {
@@ -215,12 +216,7 @@ export default {
       } else {
         this.formDisabled = false;
       }
-      this.editForm = Object.keys(this.editForm).reduce((acc, key) => {
-        if (row.hasOwnProperty(key)) {
-          acc[key] = row[key]; // 仅保留 row 中存在的字段
-        }
-        return acc;
-      }, {});
+      this.editForm = JSON.parse(JSON.stringify(row));
       this.editDialogVisible = true;
     },
     saveEdit() {
@@ -241,6 +237,7 @@ export default {
         gender: 0,
         phone: "",
         roleType: 1,
+        password: "",
         specialization: "",
       };
     },

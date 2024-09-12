@@ -3,7 +3,7 @@ import axios from "axios";
 
 const service = axios.create({
   baseURL: "/api", // 使用代理
-  timeout: 5000 * 60, // 请求超时时间
+  timeout: 60000, // 请求超时时间
 });
 
 // 请求拦截器删除为unll、undefined的传参
@@ -15,6 +15,11 @@ service.interceptors.request.use(
       // 如果存在 token，则添加到请求头
       config.headers["Authorization"] = token;
       // config.headers['Authorization'] = 'Bearer ' + token;
+    }else{
+      if(config.url !== '/p/admin/login' && config.url !== '/p/admin/register'){
+        window.location.href = '/';
+        return Promise.reject(new Error('请先登录'));
+      }
     }
     if(config?.params){
       Object.keys(config.params).forEach((key) => {

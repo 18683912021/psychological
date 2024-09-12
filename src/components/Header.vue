@@ -32,8 +32,8 @@
             </li>
             <li class="wd" @click="online()">
               <p>
-                <span>公告资讯</span>
-                <span>Announcement Information</span>
+                <span>在线咨询</span>
+                <span>Online consultation</span>
               </p>
             </li>
             <li class="lx" @click="contact()">
@@ -68,12 +68,13 @@ export default {
   },
   mounted() {
     const token = localStorage.getItem("TOKEN");
+
     if (token) {
       this.loginText = {
         cn: "退出",
         en: "Logout",
       };
-    }else{
+    } else {
       this.loginText = {
         cn: "登录",
         en: "Login",
@@ -83,6 +84,14 @@ export default {
   methods: {
     login() {
       this.$router.push("/login");
+      // 如果是退出就清楚token
+      if (this.loginText.cn === "退出") {
+        localStorage.removeItem("TOKEN");
+        this.loginText = {
+          cn: "登录",
+          en: "Login",
+        };
+      }
     },
     home() {
       this.$router.push("/");
@@ -100,7 +109,8 @@ export default {
     //   this.$router.push("/contact");
     // },
     product() {
-      this.$router.push("/Product");
+      // this.$router.push("/Product");
+      window.open("https://www.wjx.top/vm/tlb4aA2.aspx");
     },
   },
 };

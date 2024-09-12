@@ -28,8 +28,8 @@
         </el-form-item>
         <el-form-item prop="identity">
           <el-radio-group v-model="ruleForm.roleType">
-            <el-radio label="1">管理员</el-radio>
-            <el-radio label="2">用户</el-radio>
+            <el-radio label="2">管理员</el-radio>
+            <el-radio label="1">用户</el-radio>
             <el-radio label="3">心理医生</el-radio>
           </el-radio-group>
         </el-form-item>
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { login, register } from "@/service/api/index";
+import { login, register, getUserInfo } from "@/service/api/index";
 export default {
   name: "Home",
   data() {
@@ -60,7 +60,7 @@ export default {
         phone: "",
         name: "",
         password: "",
-        roleType: "1",
+        roleType: "2",
       },
     };
   },
@@ -71,16 +71,31 @@ export default {
     },
     async submitForm() {
       let url = this.type !== "登录" ? login : register;
-      const result = await url(this.ruleForm);
+      let data = Object.assign({}, this.ruleForm);
+      if (this.ruleForm.roleType == "3") {
+        data.roleType = "2";
+      }
+      const result = await url(data);
       if (result.data.code == 1000) {
         this.$message.success(this.type === "登录" ? "注册成功" : "登录成功");
-        //登录成功存token
-        localStorage.setItem("TOKEN", result.data.data.token);
-        this.$router.push("/");
+        // 登录才存token注册没有
+        if (this.type === "注册") {
+          //登录成功存token
+          localStorage.setItem("TOKEN", result.data.data.token);
+          this.$router.push("/");
+          this.queryUserInfo()
+        }
       } else {
         this.$message.error(result.data.msg);
       }
       console.log(result);
+    },
+
+    queryUserInfo() {
+      getUserInfo().then((res) => {
+        //获取个人信息存到本地
+        localStorage.setItem("USERINFO", JSON.stringify(res.data.data));
+      });
     },
   },
 };

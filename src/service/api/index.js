@@ -59,3 +59,12 @@ export function editUserInfo(data) {
     data,
   });
 }
+
+///p/admin/add/session 新增咨询师会话
+export function addSession(data) {
+  return request({
+    url: "/p/admin/add/session",
+    method: "post",
+    data,
+  });
+}
