@@ -6,7 +6,7 @@
           <h1>
             <img src="@/assets/logo.png" alt="" />
           </h1>
-          <p class="title">心理辅导平台</p>
+          <p class="title">豆芽心理辅导</p>
         </div>
       </el-col>
       <el-col :xs="24" :sm="24" :md="24" :lg="12" :xl="14" class="top-right">
