@@ -68,3 +68,21 @@ export function addSession(data) {
     data,
   });
 }
+
+///p/admin/reserve
+export function reserve(data) {
+  return request({
+    url: "/p/admin/reserve",
+    method: "post",
+    data,
+  });
+}
+
+///p/admin/myReserve
+export function myReserve(data) {
+  return request({
+    url: "/p/admin/myReserve",
+    method: "get",
+    params: data,
+  });
+}

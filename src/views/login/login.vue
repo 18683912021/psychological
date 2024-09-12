@@ -22,6 +22,7 @@
         </el-form-item>
         <el-form-item label="密码：" prop="password">
           <el-input
+            type="password"
             v-model="ruleForm.password"
             placeholder="请输入密码"
           ></el-input>
@@ -83,7 +84,7 @@ export default {
           //登录成功存token
           localStorage.setItem("TOKEN", result.data.data.token);
           this.$router.push("/");
-          this.queryUserInfo()
+          this.queryUserInfo();
         }
       } else {
         this.$message.error(result.data.msg);

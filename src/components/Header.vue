@@ -84,6 +84,7 @@ export default {
   methods: {
     login() {
       this.$router.push("/login");
+      window.location.reload(true);
       // 如果是退出就清楚token
       if (this.loginText.cn === "退出") {
         localStorage.removeItem("TOKEN");

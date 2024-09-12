@@ -11,13 +11,13 @@
       <el-form :inline="true" class="demo-form-inline">
         <el-form-item label="用户id">
           <el-input
-            v-model="searchData.name"
+            v-model="searchData.userId"
             placeholder="请输入用户id"
           ></el-input>
         </el-form-item>
         <el-form-item label="咨询师id">
           <el-input
-            v-model="searchData.phone"
+            v-model="searchData.therapistId"
             placeholder="请输入咨询师id"
           ></el-input>
         </el-form-item>
@@ -167,7 +167,6 @@ export default {
       this.searchData.pageCurrent = 1;
       listSession(this.searchData)
         .then((res) => {
-          console.log(res.data.data?.records)
           this.loading = false;
           this.tableData = res.data.data?.records;
           this.total = res.data.data?.total;

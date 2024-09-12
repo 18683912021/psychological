@@ -30,9 +30,6 @@
             <p>
               <i class="el-icon-phone"></i>123-1234-1234
             </p>
-            <p>
-              <i class="el-icon-location"></i>成都市天府新区西南交大研究院
-            </p>
           </li>
         </ul>
         <div class="box box1">
@@ -76,9 +73,6 @@
           <div class="middle">
             <p>
               <i class="el-icon-phone"></i>123-1234-1234
-            </p>
-            <p>
-              <i class="el-icon-location"></i>成都市天府新区西南交大研究院
             </p>
           </div>
         </div>

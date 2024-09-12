@@ -3,28 +3,22 @@
     <div class="admin-header">
       <div>
         <span style="color: #fff; cursor: pointer" @click="home()">首页</span>
-        > 心理医生管理
+        > 咨询记录管理
       </div>
     </div>
     <!-- 查询form表单 -->
     <div class="admin-content">
       <el-form :inline="true" class="demo-form-inline">
-        <el-form-item label="姓名">
+        <el-form-item label="用户id">
           <el-input
-            v-model="searchData.name"
-            placeholder="请输入用户、咨询师姓名"
+            v-model="searchData.userId"
+            placeholder="请输入用户id"
           ></el-input>
         </el-form-item>
-        <el-form-item label="用户类型">
-          <el-select v-model="searchData.roleType" placeholder="请选择">
-            <el-option label="用户" value="1"></el-option>
-            <el-option label="咨询师" value="2"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="手机号">
+        <el-form-item label="咨询师id">
           <el-input
-            v-model="searchData.phone"
-            placeholder="请输入用户、咨询师手机号"
+            v-model="searchData.therapistId"
+            placeholder="请输入咨询师id"
           ></el-input>
         </el-form-item>
         <!-- 提交按钮 -->
@@ -37,49 +31,27 @@
           :data="tableData"
           border
           v-loading="loading"
-          :max-height="600"
+          height="calc(100vh - 250px)"
           style="width: 100%; margin-bottom: 10px; height: calc(100vh - 250px)"
         >
-          <el-table-column prop="name" label="姓名"> </el-table-column>
-          <el-table-column prop="gender" label="性别">
-            <template slot-scope="scope">
-              <div v-if="scope.row.gender === 1">女</div>
-              <div v-else>男</div>
-            </template>
+          <el-table-column prop="reserveId" label="预约记录Id"> </el-table-column>
+          <el-table-column prop="reserveTime" label="预约时间"> </el-table-column>
+          <el-table-column prop="therapistId" label="指导师id">
           </el-table-column>
-          <el-table-column prop="createTime" label="创建时间">
+          <el-table-column prop="therapistName" label="指导师姓名">
           </el-table-column>
-          <el-table-column prop="phone" label="手机号"> </el-table-column>
-          <el-table-column prop="roleType" label="用户类型">
-            <template slot-scope="scope">
-              <div v-if="scope.row.roleType === 1">用户</div>
-              <div v-else>咨询师</div>
-            </template>
-          </el-table-column>
-          <el-table-column prop="specialization" label="专业">
-          </el-table-column>
-          <el-table-column prop="updateTime" label="更新时间">
-          </el-table-column>
-          <el-table-column fixed="right" label="操作" width="100">
-            <template slot-scope="scope">
-              <el-button @click="editRow(scope.row,1)" type="text" size="small"
-                >查看</el-button
-              >
-              <el-button @click="editRow(scope.row,2)" type="text" size="small"
-                >编辑</el-button
-              >
-            </template>
-          </el-table-column>
+          <el-table-column prop="userName" label="用户姓名"> </el-table-column>
+          <el-table-column prop="userId" label="用户id"> </el-table-column>
         </el-table>
         <div style="text-align: right">
           <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page.sync="searchData.pageNumber"
+            :current-page.sync="searchData.pageCurrent"
             :page-sizes="[20, 200, 300, 400]"
             :page-size="searchData.pageSize"
             layout="sizes, prev, pager, next"
-            :total="tableData.length"
+            :total="total"
           >
           </el-pagination>
         </div>
@@ -141,25 +113,30 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editDialogVisible = false">取消</el-button>
-        <el-button v-if="editForm.roleType === 2" type="primary" @click="saveEdit">保存</el-button>
+        <el-button
+          v-if="editForm.roleType === 2"
+          type="primary"
+          @click="saveEdit"
+          >保存</el-button
+        >
       </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { getMatchPherapist, editMatchPherapist } from "@/service/api";
+import { listSession, editMatchPherapist,myReserve } from "@/service/api";
 
 export default {
   data() {
     return {
       loading: false,
+      total: 0,
       searchData: {
-        pageNumber: 1,
+        pageCurrent: 1,
         pageSize: 20,
-        name: "",
-        roleType: "2",
-        phone: "",
+        userId: "",
+        therapistId: "",
       },
       formDisabled: false,
       tableData: [],
@@ -183,15 +160,23 @@ export default {
       this.queryList();
     },
     handleCurrentChange(val) {
-      this.searchData.pageNumber = val;
+      this.searchData.pageCurrent = val;
       this.queryList();
     },
     queryList() {
       this.loading = true;
-      getMatchPherapist(this.searchData).then((res) => {
-        this.loading = false;
-        this.tableData = res.data.data.records;
-      });
+      this.searchData.pageCurrent = 1;
+      myReserve(this.searchData)
+        .then((res) => {
+          this.loading = false;
+          this.tableData = res.data.data?.records;
+          this.total = res.data.data?.total;
+        })
+        .catch((err) => {
+          console.log(err)
+          this.$message.error(err.data.msg);
+          this.loading = false;
+        });
     },
     home() {
       this.$router.push("/");
@@ -199,10 +184,10 @@ export default {
     onSubmit() {
       this.queryList();
     },
-    editRow(row,type) {
-      if(type === 1){
+    editRow(row, type) {
+      if (type === 1) {
         this.formDisabled = true;
-      }else{
+      } else {
         this.formDisabled = false;
       }
       this.editForm = Object.keys(this.editForm).reduce((acc, key) => {

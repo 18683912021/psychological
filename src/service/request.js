@@ -28,7 +28,6 @@ service.interceptors.request.use(
         }
       });
     }else if(config?.data){
-      
       Object.keys(config.data).forEach((key) => {
         if (config.data[key] === null || config.data[key] === undefined || config.data[key] === '') {
           delete config.data[key];

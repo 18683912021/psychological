@@ -66,6 +66,7 @@ import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import { getMatchPherapist, addSession } from "@/service/api/index";
 import "@/css/Online.scss";
+import { nextTick } from "vue";
 export default {
   name: "Home",
   data() {
@@ -108,7 +109,12 @@ export default {
   },
 
   destroyed() {
+    this.chatMessages = {};
     this.ws.close();
+    this.ws.onclose = null;
+    // this.ws.onmessage = null;
+    // this.ws.onerror = null;
+    // this.ws.onopen = null;
   },
   methods: {
     //连接websocket
@@ -121,22 +127,36 @@ export default {
       };
 
       this.ws.onmessage = (e) => {
-        console.log(e);
         // 接收到消息
+        console.log(e.data);
         let data = JSON.parse(e.data);
         let params = {
           msg: data.msg,
           messageType: "CONNECT",
           fromUserId: this.userInfo.id,
           isFromUser: false,
-          toUserId: this.currentUser.id,
+          toUserId: data.formUserId,
           fromRoleType: this.userInfo.roleType,
-          toRoleType: this.currentUser.roleType,
+          toRoleType: data.roleType,
         };
-        this.currentUser = {
-          id: data.toUserId,
-        };
-        this.chatMessages.push(JSON.parse(JSON.stringify(params)));
+        this.$nextTick(() => {
+          this.chatMessages.push({
+            msg: data.msg,
+            messageType: "CONNECT",
+            fromUserId: this.userInfo.id,
+            isFromUser: false,
+            toUserId: data.formUserId,
+            fromRoleType: this.userInfo.roleType,
+            toRoleType: data.roleType,
+          });
+          console.log(this.chatMessages);
+        });
+        // 如果userList里的一项的id等于当前选中的data.fromUserId，那么currentUser就等于这项
+        if (this.userList.find((item) => item.id == data.formUserId)) {
+          this.currentUser = this.userList.find(
+            (item) => item.id == data.formUserId
+          );
+        }
         this.resetHeartbeat(); // 收到消息时，重置心跳
       };
 
@@ -199,10 +219,20 @@ export default {
     },
     //当前选中事件
     currentChange(val) {
+      let params = {
+        msg: "123",
+        messageType: "CONNECT",
+        fromUserId: this.userInfo.id,
+        toUserId: val.id,
+        fromRoleType: this.userInfo.roleType,
+        toRoleType: val.roleType,
+      };
+      this.ws.send(JSON.stringify(params));
       this.currentUser = val;
     },
 
     sendMessage() {
+      console.log(this.currentUser);
       if (!this.currentUser.id) {
         return this.$message.error("请选择咨询对象");
       }
@@ -224,7 +254,7 @@ export default {
       this.chatMessages.push(JSON.parse(JSON.stringify(this.sendForm)));
       this.currentMsg = "";
       //如果userInfo.roleType == 2调saveSession
-      console.log(this.userInfo.roleType)
+      console.log(this.userInfo.roleType);
       if (this.userInfo.roleType == 2) {
         this.saveSession(this.userInfo.id);
       }
@@ -232,7 +262,7 @@ export default {
 
     // 保存心理医生会话
     saveSession(id) {
-      addSession({ therapistId: id })
+      addSession({ therapistId: id });
     },
   },
 };

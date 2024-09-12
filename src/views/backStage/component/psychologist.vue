@@ -15,12 +15,16 @@
             placeholder="请输入用户、咨询师姓名"
           ></el-input>
         </el-form-item>
-        <el-form-item label="用户类型">
-          <el-select v-model="searchData.roleType" placeholder="请选择">
+        <!-- <el-form-item label="用户类型">
+          <el-select
+            disabled
+            v-model="searchData.roleType"
+            placeholder="请选择"
+          >
             <el-option label="用户" value="1"></el-option>
             <el-option label="咨询师" value="2"></el-option>
           </el-select>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="手机号">
           <el-input
             v-model="searchData.phone"
@@ -61,13 +65,20 @@
           </el-table-column>
           <el-table-column prop="updateTime" label="更新时间">
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="100">
+          <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">
               <el-button @click="editRow(scope.row, 1)" type="text" size="small"
                 >查看</el-button
               >
               <el-button @click="editRow(scope.row, 2)" type="text" size="small"
                 >编辑</el-button
+              >
+              <el-button
+                v-if="userInfo.roleType === 1"
+                @click="appointment(scope.row)"
+                type="text"
+                size="small"
+                >预约</el-button
               >
             </template>
           </el-table-column>
@@ -86,11 +97,29 @@
         </div>
       </div>
     </div>
-
+    <el-dialog
+      title="请选择预约时间"
+      :close-on-click-modal="false"
+      :visible.sync="editDialogVisible2"
+      width="20%"
+    >
+      <el-date-picker
+        format="yyyy-MM-dd"
+        v-model="datetime"
+        type="datetime"
+        placeholder="选择日期时间"
+      >
+      </el-date-picker>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible = false">取消</el-button>
+        <el-button type="primary" @click="saveyy">保存</el-button>
+      </span>
+    </el-dialog>
     <!-- 修改弹窗 -->
     <el-dialog
       title="编辑信息"
       :visible.sync="editDialogVisible"
+      :close-on-click-modal="false"
       width="40%"
       @close="resetEditForm"
     >
@@ -151,7 +180,7 @@
 </template>
 
 <script>
-import { getMatchPherapist, editMatchPherapist } from "@/service/api";
+import { getMatchPherapist, editMatchPherapist, reserve } from "@/service/api";
 
 export default {
   data() {
@@ -165,9 +194,11 @@ export default {
         roleType: "1",
         phone: "",
       },
+      datetime: "",
       formDisabled: false,
       tableData: [],
       editDialogVisible: false,
+      editDialogVisible2: false,
       editForm: {
         name: "",
         gender: 0,
@@ -175,13 +206,35 @@ export default {
         roleType: 1,
         specialization: "",
       },
+      useInfo: {},
+      yy: {},
     };
   },
 
   mounted() {
+    this.searchData.roleType =
+      JSON.parse(localStorage.getItem("USERINFO"))?.roleType == 1 ? 2 : 1;
+    this.userInfo = JSON.parse(localStorage.getItem("USERINFO"));
     this.queryList();
   },
   methods: {
+    appointment(val) {
+      this.yy = val;
+      this.editDialogVisible2 = true;
+      // this.$alert("确定预约当前医生", "预约提示", {
+      //   confirmButtonText: "确定",
+      //   callback: (action) => {},
+      // });
+    },
+    saveyy() {
+      reserve({
+        reserveTime: this.$ft(this.datetime, "{y}-{m}-{d}"),
+        therapistId: this.yy.id,
+      }).then((res) => {
+        if (res.data.code == 1000) this.$message.success("预约成功");
+      });
+      this.editDialogVisible2 = false;
+    },
     handleSizeChange(val) {
       this.searchData.pageSize = val;
       this.queryList();
