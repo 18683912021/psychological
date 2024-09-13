@@ -70,9 +70,9 @@
               <el-button @click="editRow(scope.row, 1)" type="text" size="small"
                 >查看</el-button
               >
-              <el-button @click="editRow(scope.row, 2)" type="text" size="small"
+              <!-- <el-button @click="editRow(scope.row, 2)" type="text" size="small"
                 >编辑</el-button
-              >
+              > -->
               <el-button
                 v-if="userInfo.roleType === 1"
                 @click="appointment(scope.row)"
